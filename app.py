@@ -4,7 +4,9 @@ from peft import PeftModel
 import torch
 import os
 
-token = "" # hugging face token
+token = os.getenv('HF_TOKEN')
+
+# token = token # hugging face token
 @st.cache_resource
 def load_model(base_model_path) :
     """
@@ -13,7 +15,7 @@ def load_model(base_model_path) :
 
     print('START OF THE APP')
     # Load the base model and tokenizer
-    token = '' 
+    #token = token 
     tokenizer = AutoTokenizer.from_pretrained('meta-llama/Llama-3.2-3B-Instruct', token=token) # meta-llama/Llama-3.2-1B
     base_model = AutoModelForCausalLM.from_pretrained('meta-llama/Llama-3.2-3B-Instruct', token=token,device_map="auto", low_cpu_mem_usage=True,trust_remote_code=True,torch_dtype=torch.float16)
     print('Loaded the BASE MODEL AND TOKENIZER ')
